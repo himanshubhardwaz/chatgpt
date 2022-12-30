@@ -8,7 +8,7 @@ export default function ChatLayout({
   return (
     <html>
       <head />
-      <body className='flex'>
+      <body className='flex min-h-screen'>
         <Sidebar />
         {children}
       </body>
