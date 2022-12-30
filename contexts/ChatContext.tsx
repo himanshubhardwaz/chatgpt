@@ -13,7 +13,7 @@ interface ChatInterface {
 }
 
 interface ChatStateAndMethods extends ChatInterface {
-  getCurrentActiveChat: () => SingleChatInterface;
+  getCurrentActiveChat: () => SingleChatInterface | null;
 }
 
 enum ChatActionType {
@@ -37,7 +37,14 @@ export const useChatCtx = () => {
 
 const ChatProvider = ({ children }: { children: ReactNode }) => {
   const getCurrentActiveChat = () => {
-    return { id: "", chat: [] };
+    if (state.currentActiveChat) {
+      const foundChat = state.chats.find(
+        (chat) => chat.id === state.currentActiveChat
+      );
+
+      if (foundChat) return foundChat;
+    }
+    return null;
   };
 
   const initialValue = {
